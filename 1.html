@@ -1,0 +1,1320 @@
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --bg-light: #ecf0f1;
+            --text-dark: #2c3e50;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--bg-light), #fff);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+        
+        .navbar-custom {
+            background-color: var(--primary-color);
+            box-shadow: var(--card-shadow);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s;
+            background: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1.5rem;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            border-bottom: 3px solid var(--accent-color);
+        }
+        
+        .accordion-button {
+            background-color: #fff;
+            color: var(--text-dark);
+            border: none;
+            box-shadow: none;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .accordion-item {
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: 10px !important;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        code {
+            background: #f8f9fa;
+            color: var(--accent-color);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .page-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .list-group-item {
+            border: none;
+            border-bottom: 1px solid rgba(0,0,0,.125);
+            padding: 1rem;
+        }
+
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        .img-thumbnail {
+            border: none;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s;
+        }
+
+        .img-thumbnail:hover {
+            transform: scale(1.05);
+        }
+    </style>
+
+    <title>Aula de Lógica</title>
+        <meta name="description" content="Revisão de Lógica Proposicional: proposições, conectivos, tabelas da verdade e equivalências. Material didático para estudo." />
+    <link rel="icon" href="https://images.icon-icons.com/4300/PNG/512/file_save_storage_disk_data_icon_266977.png"
+        type="image/png">
+</head>
+
+<body>
+    <header class="page-header">
+        <div class="container">
+            <div class="text-center">
+                <h1>Atividade de Lógica de Programação</h1>
+                <p class="lead">Um espaço para praticar seus conhecimentos.</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container pb-5">
+        <main>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            LM
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Mapa mental</p>
+                            <!-- Imagem clicável -->
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                <img src="notebooklm-mind-map.png" class="img-thumbnail" alt="Mapa Mental NotebookLM"
+                                    style="max-width: 150px;">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Exemplos de Lógica Clássica (Formal)
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>Modus Ponens:</strong> Se P implica Q, e P é verdadeiro, então Q é
+                                    verdadeiro.
+                                    <br><code>(P → Q, P) ⊢ Q</code>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Modus Tollens:</strong> Se P implica Q, e Q é falso, então P é falso.
+                                    <br><code>(P → Q, ¬Q) ⊢ ¬P</code>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Silogismo Hipotético:</strong> Se P implica Q, e Q implica R, então P
+                                    implica R.
+                                    <br><code>(P → Q, Q → R) ⊢ (P → R)</code>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Silogismo Disjuntivo:</strong> Se P ou Q é verdadeiro, e P é falso, então Q
+                                    é verdadeiro.
+                                    <br><code>(P ∨ Q, ¬P) ⊢ Q</code>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Dilema Construtivo:</strong> Se (P implica Q) e (R implica S), e (P ou R) é
+                                    verdadeiro, então (Q ou S) é verdadeiro.
+                                    <br><code>((P → Q) ∧ (R → S), P ∨ R) ⊢ (Q ∨ S)</code>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <h2 class="mb-3">Introdução à Lógica</h2>
+                                    <div class="accordion" id="slidesAccordion">
+                                        <!-- Slide 2 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading2">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse2"
+                                                    aria-expanded="false" aria-controls="collapse2">
+                                                    <strong>O Que é Lógica?</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="collapse2" class="accordion-collapse collapse"
+                                                aria-labelledby="heading2" data-bs-parent="#slidesAccordion">
+                                                <div class="accordion-body">
+                                                    <p><strong>Pergunta central:</strong> "Afinal de contas, o que é a
+                                                        lógica?"
+                                                    </p>
+                                                    <ul>
+                                                        <li>É mais complexo de definir do que um objeto concreto como
+                                                            uma
+                                                            "cadeira".
+                                                        </li>
+                                                    </ul>
+                                                    <h6>Definições:</h6>
+                                                    <ul>
+                                                        <li>Estudo filosófico das formas do pensamento: dedução,
+                                                            indução,
+                                                            hipótese,
+                                                            inferência.</li>
+                                                        <li>Ciência dos princípios e métodos para estabelecer a validade
+                                                            ou
+                                                            invalidade
+                                                            de argumentos.</li>
+                                                        <li>Foco na forma e estrutura do raciocínio, e não
+                                                            necessariamente no
+                                                            conteúdo.
+                                                        </li>
+                                                    </ul>
+                                                    <h6>Conexão com a Computação:</h6>
+                                                    <ul>
+                                                        <li>"Forma de encadeamento ou de raciocínio": este "passo a
+                                                            passo" é a
+                                                            base do
+                                                            algoritmo.</li>
+                                                        <li>É uma forma coerente de pensar; um fundamento essencial para
+                                                            a área.
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Slide 3 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading3">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse3"
+                                                    aria-expanded="false" aria-controls="collapse3">
+                                                    <strong>A História da Lógica em Três Períodos</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="collapse3" class="accordion-collapse collapse"
+                                                aria-labelledby="heading3" data-bs-parent="#slidesAccordion">
+                                                <div class="accordion-body">
+                                                    <h6>1. Período Aristotélico (Séc. IV a.C. - Séc. XIX):</h6>
+                                                    <ul>
+                                                        <li>Iniciado por Aristóteles, que buscava entender como o ser
+                                                            humano
+                                                            pensa.</li>
+                                                        <li>Foco na estrutura do pensamento e não no seu conteúdo.</li>
+                                                        <li>Era um campo predominantemente filosófico.</li>
+                                                    </ul>
+                                                    <h6>2. Período Booleano (Séc. XIX):</h6>
+                                                    <ul>
+                                                        <li>Liderado por George Boole, aproximou a lógica da matemática.
+                                                        </li>
+                                                        <li>Desenvolvimento da álgebra booleana, fundamental para a
+                                                            computação
+                                                            (variáveis booleanas).</li>
+                                                    </ul>
+                                                    <h6>3. Período Contemporâneo (Séc. XX - Atual):</h6>
+                                                    <ul>
+                                                        <li>Integração da lógica com diversas outras áreas.</li>
+                                                        <li>Aplicação direta na Informática, Administração, Física,
+                                                            entre
+                                                            outras.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Slide 4 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading4">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse4"
+                                                    aria-expanded="false" aria-controls="collapse4">
+                                                    <strong>Tipos de Lógica (Parte I) - Foco da Disciplina</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="collapse4" class="accordion-collapse collapse"
+                                                aria-labelledby="heading4" data-bs-parent="#slidesAccordion">
+                                                <div class="accordion-body">
+                                                    <h6>Lógica Formal (Clássica ou Aristotélica):</h6>
+                                                    <ul>
+                                                        <li>Analisa a estrutura do pensamento e é regida por três
+                                                            princípios
+                                                            fundamentais (serão detalhados no próximo slide).</li>
+                                                    </ul>
+                                                    <h6>Lógica Simbólica:</h6>
+                                                    <ul>
+                                                        <li>Principal objeto de estudo da disciplina.</li>
+                                                        <li>Divide-se em duas áreas cruciais:
+                                                            <ul class="mt-2">
+                                                                <li><strong>Lógica Proposicional:</strong> Estuda as
+                                                                    proposições
+                                                                    (sentenças que podem ser verdadeiras ou falsas) e as
+                                                                    relações entre
+                                                                    elas através de conectivos (e, ou, se... então).
+                                                                </li>
+                                                                <li><strong>Lógica de Predicados:</strong> Uma extensão
+                                                                    que
+                                                                    analisa a
+                                                                    estrutura interna das sentenças, introduzindo
+                                                                    objetos,
+                                                                    predicados e
+                                                                    quantificadores ("todo", "algum").
+                                                                    <ul>
+                                                                        <li>Exemplo de aplicação: Linguagem de
+                                                                            programação
+                                                                            Prolog.</li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Slide 5 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading5">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse5"
+                                                    aria-expanded="false" aria-controls="collapse5">
+                                                    <strong>Os Três Princípios Fundamentais da Lógica Formal</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="collapse5" class="accordion-collapse collapse"
+                                                aria-labelledby="heading5" data-bs-parent="#slidesAccordion">
+                                                <div class="accordion-body">
+                                                    <p>Para um raciocínio ser considerado lógico, ele precisa seguir
+                                                        estes
+                                                        princípios:
+                                                    </p>
+                                                    <ol>
+                                                        <li><strong>Princípio da Identidade:</strong> Todo objeto é
+                                                            idêntico a
+                                                            si mesmo.
+                                                            "A é A".</li>
+                                                        <li><strong>Princípio da Não Contradição:</strong> Uma
+                                                            proposição não
+                                                            pode ser
+                                                            verdadeira e falsa ao mesmo tempo.</li>
+                                                        <li><strong>Princípio do Terceiro Excluído:</strong> Uma
+                                                            proposição ou é
+                                                            verdadeira ou é falsa; não existe um terceiro valor.</li>
+                                                    </ol>
+                                                        <p class="small text-muted mt-2">Observação: estes princípios
+                                                            correspondem à lógica clássica. Existem sistemas
+                                                            lógicos não-clássicos (por exemplo, lógicas
+                                                            multivaloradas ou intuicionistas) que tratam alguns
+                                                            desses princípios de maneira diferente; aqui estamos
+                                                            adotando a lógica clássica como referência.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Slide 6 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading6">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse6"
+                                                    aria-expanded="false" aria-controls="collapse6">
+                                                    <strong>Relações da Lógica com a Computação</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="collapse6" class="accordion-collapse collapse"
+                                                aria-labelledby="heading6" data-bs-parent="#slidesAccordion">
+                                                <div class="accordion-body">
+                                                    <h6>Programação e Algoritmos:</h6>
+                                                    <ul>
+                                                        <li>A lógica estrutura o pensamento para a formulação de
+                                                            algoritmos.
+                                                        </li>
+                                                        <li>Uso direto de condicionais (if) e conectivos (and, or, not).
+                                                        </li>
+                                                    </ul>
+                                                    <h6>Inteligência Artificial (IA):</h6>
+                                                    <ul>
+                                                        <li>Essencial para "ensinar" uma máquina a raciocinar.</li>
+                                                        <li>Lógica Epistêmica (conhecimento e ação) e linguagens como
+                                                            Prolog.
+                                                        </li>
+                                                    </ul>
+                                                    <h6>Banco de Dados:</h6>
+                                                    <ul>
+                                                        <li>Fortemente ligado à Lógica Matemática e à Teoria dos
+                                                            Conjuntos. As
+                                                            tabelas e
+                                                            operações em banco de dados são análogas a conjuntos.</li>
+                                                    </ul>
+                                                    <h6>Circuitos Eletrônicos (Hardware):</h6>
+                                                    <ul>
+                                                        <li>A Lógica Digital e as portas lógicas (AND, OR) são a base do
+                                                            funcionamento
+                                                            do hardware.</li>
+                                                    </ul>
+                                                    <h6>Análise de Algoritmos:</h6>
+                                                    <ul>
+                                                        <li>Utilizada para calcular o custo computacional e otimizar a
+                                                            eficiência de
+                                                            softwares.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Slide 7 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading7">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse7"
+                                                    aria-expanded="false" aria-controls="collapse7">
+                                                    <strong>O Que Veremos na Disciplina?</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="collapse7" class="accordion-collapse collapse"
+                                                aria-labelledby="heading7" data-bs-parent="#slidesAccordion">
+                                                <div class="accordion-body">
+                                                    <h6>Roteiro do curso (Ementa):</h6>
+                                                    <ul>
+                                                        <li>Lógica Proposicional: Conectivos, Tabela da Verdade,
+                                                            Equivalências e
+                                                            Argumentos.</li>
+                                                        <li>Lógica de Predicados: Aprofundamento com quantificadores.
+                                                        </li>
+                                                        <li>Sistemas de Numeração: Binário, Hexadecimal e Aritmética
+                                                            Binária.
+                                                        </li>
+                                                        <li>Teoria dos Conjuntos: Álgebra de conjuntos e sua relação com
+                                                            Bancos
+                                                            de
+                                                            Dados.</li>
+                                                        <li>Grafos: Aplicações em diversos problemas computacionais.
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <h2 class="mb-3">Lógica Proposicional</h2>
+                                    <div class="accordion" id="tema2Accordion">
+                                        <!-- Item 1 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema2heading1">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#tema2collapse1" aria-expanded="true"
+                                                    aria-controls="tema2collapse1">
+                                                    <strong>Recapitulando e Contextualizando</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema2collapse1" class="accordion-collapse collapse show"
+                                                aria-labelledby="tema2heading1" data-bs-parent="#tema2Accordion">
+                                                <div class="accordion-body">
+                                                    <p><strong>Revisão da Aula 1:</strong> A Lógica Proposicional é um
+                                                        ramo da
+                                                        Lógica Simbólica.</p>
+                                                    <h6>O que ela estuda?</h6>
+                                                    <ul>
+                                                        <li>Como raciocinar com afirmações que podem ser verdadeiras ou
+                                                            falsas.
+                                                        </li>
+                                                    </ul>
+                                                    <h6>Fundamentos:</h6>
+                                                    <p>A Lógica Proposicional é regida pelos três princípios
+                                                        fundamentais da
+                                                        lógica formal:</p>
+                                                    <ul>
+                                                        <li>Princípio da Identidade: A é igual a A.</li>
+                                                        <li>Princípio da Não Contradição: Uma proposição não pode ser
+                                                            verdadeira
+                                                            e falsa ao mesmo tempo.</li>
+                                                        <li>Princípio do Terceiro Excluído: Uma proposição ou é
+                                                            verdadeira ou é
+                                                            falsa, não existe um terceiro valor.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 2 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema2heading2">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema2collapse2"
+                                                    aria-expanded="false" aria-controls="tema2collapse2">
+                                                    <strong>A Unidade Fundamental: A Proposição</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema2collapse2" class="accordion-collapse collapse"
+                                                aria-labelledby="tema2heading2" data-bs-parent="#tema2Accordion">
+                                                <div class="accordion-body">
+                                                    <p><strong>Definição Central:</strong> "Uma proposição é uma
+                                                        sentença
+                                                        declarativa que pode assumir somente dois possíveis valores:
+                                                        verdadeiro
+                                                        ou falso".</p>
+                                                    <h6>Características Essenciais:</h6>
+                                                    <ul>
+                                                        <li>Deve ser uma afirmação ou declaração, não uma pergunta.</li>
+                                                        <li>Não pode ser ambígua; precisa ter um único valor lógico (V
+                                                            ou F).
+                                                        </li>
+                                                    </ul>
+                                                    <h6>Exemplos das Fontes:</h6>
+                                                    <ul>
+                                                        <li>"João é careca".</li>
+                                                        <li>"Uva é uma fruta".</li>
+                                                        <li>"10 é menor do que 4" (Esta proposição tem o valor Falso).
+                                                        </li>
+                                                        <li>"1 + 1 = 10" (Pode ser Verdadeiro ou Falso dependendo do
+                                                            contexto,
+                                                            como a base numérica binária ou decimal).</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 3 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema2heading3">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema2collapse3"
+                                                    aria-expanded="false" aria-controls="tema2collapse3">
+                                                    <strong>Tipos de Proposições (Parte I) - Simples</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema2collapse3" class="accordion-collapse collapse"
+                                                aria-labelledby="tema2heading3" data-bs-parent="#tema2Accordion">
+                                                <div class="accordion-body">
+                                                    <p><strong>Definição:</strong> São proposições que não podem ser
+                                                        subdivididas em outras proposições.</p>
+                                                    <h6>Exemplos:</h6>
+                                                    <ul>
+                                                        <li>"João é careca".</li>
+                                                        <li>"Brasília é a capital do Brasil".</li>
+                                                        <li>"17 é um número ímpar".</li>
+                                                    </ul>
+                                                    <p><strong>Ponto Chave:</strong> Elas são as unidades "atômicas" do
+                                                        raciocínio lógico.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 4 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema2heading4">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema2collapse4"
+                                                    aria-expanded="false" aria-controls="tema2collapse4">
+                                                    <strong>Tipos de Proposições (Parte II) - Compostas</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema2collapse4" class="accordion-collapse collapse"
+                                                aria-labelledby="tema2heading4" data-bs-parent="#tema2Accordion">
+                                                <div class="accordion-body">
+                                                    <p><strong>Definição:</strong> São formadas pela união de duas ou
+                                                        mais
+                                                        proposições simples.</p>
+                                                    <p><strong>Como são unidas?</strong> Através de Conectivos Lógicos.
+                                                    </p>
+                                                    <h6>Exemplo Principal: "João é alto e Maria é baixa".</h6>
+                                                    <ul>
+                                                        <li>Proposição simples 1: "João é alto".</li>
+                                                        <li>Proposição simples 2: "Maria é baixa".</li>
+                                                        <li>Conectivo: "e".</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 5 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema2heading5">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema2collapse5"
+                                                    aria-expanded="false" aria-controls="tema2collapse5">
+                                                    <strong>Os Conectivos Lógicos</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema2collapse5" class="accordion-collapse collapse"
+                                                aria-labelledby="tema2heading5" data-bs-parent="#tema2Accordion">
+                                                <div class="accordion-body">
+                                                    <p><strong>Introdução:</strong> Os conectivos são os operadores que
+                                                        unem as
+                                                        proposições.</p>
+                                                    <h6>Lista dos Principais Conectivos:</h6>
+                                                    <ul>
+                                                        <li>Negação (não): Conectivo unário (age sobre uma única
+                                                            proposição).
+                                                        </li>
+                                                        <li>Conjunção (e): Conectivo binário (une duas proposições).
+                                                        </li>
+                                                        <li>Disjunção (ou): Conectivo binário.</li>
+                                                        <li>Condicional/Implicação (se... então...): Conectivo binário.
+                                                        </li>
+                                                        <li>Bicondicional/Bi-implicação (se e somente se): Conectivo
+                                                            binário.
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 6 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema2heading6">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema2collapse6"
+                                                    aria-expanded="false" aria-controls="tema2collapse6">
+                                                    <strong>Complexidade: Múltiplos Conectivos em uma
+                                                        Proposição</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema2collapse6" class="accordion-collapse collapse"
+                                                aria-labelledby="tema2heading6" data-bs-parent="#tema2Accordion">
+                                                <div class="accordion-body">
+                                                    <p><strong>Ponto Importante:</strong> Uma proposição composta pode
+                                                        conter
+                                                        várias proposições simples e múltiplos conectivos.</p>
+                                                    <h6>Exemplo da Fonte:</h6>
+                                                    <p class="font-monospace">"Se a junta do cabeçote está vazando e tem
+                                                        água no
+                                                        cilindro, então o carro não vai pegar".</p>
+                                                    <p><strong>Conectivos presentes:</strong> Implicação (se... então),
+                                                        Conjunção (e), Negação (não).</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 7 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema2heading7">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema2collapse7"
+                                                    aria-expanded="false" aria-controls="tema2collapse7">
+                                                    <strong>Da Linguagem Natural para a Linguagem Formal</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema2collapse7" class="accordion-collapse collapse"
+                                                aria-labelledby="tema2heading7" data-bs-parent="#tema2Accordion">
+                                                <div class="accordion-body">
+                                                    <p><strong>Objetivo:</strong> Traduzir nossas sentenças para uma
+                                                        linguagem
+                                                        universal de símbolos, mais próxima da computação.</p>
+                                                    <h6>Componentes da Linguagem Formal ("Alfabeto"):</h6>
+                                                    <ol>
+                                                        <li>Variáveis Proposicionais: Letras que substituem as
+                                                            proposições
+                                                            simples (ex: p, q, x, y).</li>
+                                                        <li>Símbolos dos Conectivos: (ex: ¬ para negação, ∧ para
+                                                            conjunção, ∨
+                                                            para disjunção, etc.).</li>
+                                                        <li>Conjunto de Parênteses: Para organizar a ordem das
+                                                            operações.</li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 8 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema2heading8">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema2collapse8"
+                                                    aria-expanded="false" aria-controls="tema2collapse8">
+                                                    <strong>Praticando a Tradução para a Linguagem Formal</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema2collapse8" class="accordion-collapse collapse"
+                                                aria-labelledby="tema2heading8" data-bs-parent="#tema2Accordion">
+                                                <div class="accordion-body">
+                                                    <h6>Exemplo Prático:</h6>
+                                                    <p><strong>Sentença em Linguagem Natural:</strong> "Pedro é alto e
+                                                        João é
+                                                        baixo".</p>
+                                                    <p><strong>Passo 1:</strong> Identificar as proposições simples.</p>
+                                                    <ul>
+                                                        <li>p: "Pedro é alto".</li>
+                                                        <li>q: "João é baixo".</li>
+                                                    </ul>
+                                                    <p><strong>Passo 2:</strong> Identificar o conectivo.</p>
+                                                    <ul>
+                                                        <li>Conectivo: "e" (Conjunção).</li>
+                                                    </ul>
+                                                    <p><strong>Passo 3:</strong> Escrever na Linguagem Formal.</p>
+                                                    <ul>
+                                                        <li><code>p ∧ q</code></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <h2 class="mb-3">Conectivos e Tabela da Verdade</h2>
+                                    <div class="accordion" id="tema3Accordion">
+                                        <!-- Item 1 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema3heading1">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#tema3collapse1" aria-expanded="true"
+                                                    aria-controls="tema3collapse1">
+                                                    <strong>Recapitulando e Apresentando o Objetivo</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema3collapse1" class="accordion-collapse collapse show"
+                                                aria-labelledby="tema3heading1" data-bs-parent="#tema3Accordion">
+                                                <div class="accordion-body">
+                                                    <h6>Resumo</h6>
+                                                    <ul>
+                                                        <li>Já sabemos o que são proposições (simples e compostas).</li>
+                                                        <li>Sabemos que proposições compostas são unidas por conectivos
+                                                            lógicos (não, e, ou, se... então..., se e somente se).</li>
+                                                        <li>Aprendemos a traduzir da linguagem natural para a linguagem
+                                                            formal usando símbolos.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 2 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema3heading2">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema3collapse2"
+                                                    aria-expanded="false" aria-controls="tema3collapse2">
+                                                    <strong>A Ferramenta Principal: Tabela da Verdade</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema3collapse2" class="accordion-collapse collapse"
+                                                aria-labelledby="tema3heading2" data-bs-parent="#tema3Accordion">
+                                                <div class="accordion-body">
+                                                    <h6>O que é?</h6>
+                                                    <p>É uma ferramenta matemática usada para verificar a validade
+                                                        lógica de proposições e expressões.</p>
+                                                    <h6>Para que serve?</h6>
+                                                    <ul>
+                                                        <li>Testar todas as combinações possíveis de valores
+                                                            (Verdadeiro/Falso) para as variáveis proposicionais de uma
+                                                            expressão.</li>
+                                                        <li>Determinar o resultado final da expressão para cada
+                                                            combinação de entrada.</li>
+                                                    </ul>
+                                                    <h6>Conexão com a Computação:</h6>
+                                                    <ul>
+                                                        <li>Vamos usar 1 para Verdadeiro e 0 para Falso, criando um
+                                                            vínculo direto com o sistema binário do computador.</li>
+                                                        <li>A análise é análoga a testar o comportamento de um circuito
+                                                            digital ou de uma condição if em um programa.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 3 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema3heading3">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema3collapse3"
+                                                    aria-expanded="false" aria-controls="tema3collapse3">
+                                                    <strong>Construindo a Tabela da Verdade (Estrutura)</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema3collapse3" class="accordion-collapse collapse"
+                                                aria-labelledby="tema3heading3" data-bs-parent="#tema3Accordion">
+                                                <div class="accordion-body">
+                                                    <h6>Passo 1: Quantas linhas a tabela terá?</h6>
+                                                    <p>A quantidade de linhas depende do número de variáveis
+                                                        proposicionais (p, q, r...).</p>
+                                                    <p><strong>Fórmula:</strong> O número de linhas é 2 elevado ao
+                                                        número de variáveis.</p>
+                                                    <ul>
+                                                        <li>1 variável (p): 2¹ = 2 linhas.</li>
+                                                        <li>2 variáveis (p, q): 2² = 4 linhas.</li>
+                                                        <li>3 variáveis (p, q, r): 2³ = 8 linhas.</li>
+                                                    </ul>
+                                                    <h6>Passo 2: Como preencher as colunas das variáveis?</h6>
+                                                    <p>O macete: Para garantir que todas as combinações sejam testadas
+                                                        sem erros:</p>
+                                                    <ul>
+                                                        <li>Na variável mais à direita (ex: r), alterne 0 e 1 em cada
+                                                            linha (0, 1, 0, 1...).</li>
+                                                        <li>Na variável à esquerda (ex: q), alterne de dois em dois (0,
+                                                            0, 1, 1...).</li>
+                                                        <li>Na próxima (ex: p), alterne de quatro em quatro (0, 0, 0, 0,
+                                                            1, 1, 1, 1...).</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 4 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema3heading4">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema3collapse4"
+                                                    aria-expanded="false" aria-controls="tema3collapse4">
+                                                    <strong>Valor Lógico dos Conectivos (Parte I)</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema3collapse4" class="accordion-collapse collapse"
+                                                aria-labelledby="tema3heading4" data-bs-parent="#tema3Accordion">
+                                                <div class="accordion-body">
+                                                    <h6>1. Negação (NÃO / ¬)</h6>
+                                                    <ul>
+                                                        <li><strong>Tipo:</strong> Conectivo unário.</li>
+                                                        <li><strong>Regra:</strong> Simplesmente inverte o valor lógico
+                                                            da proposição.</li>
+                                                    </ul>
+                                                    <table class="table table-bordered text-center table-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>p</th>
+                                                                <th>¬p</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>0</td>
+                                                                <td>1</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h6 class="mt-3">2. Conjunção (E / ∧)</h6>
+                                                    <ul>
+                                                        <li><strong>Tipo:</strong> Conectivo binário.</li>
+                                                        <li><strong>Regra:</strong> Só é verdadeira (1) se ambas as
+                                                            proposições forem verdadeiras.</li>
+                                                    </ul>
+                                                    <table class="table table-bordered text-center table-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>p</th>
+                                                                <th>q</th>
+                                                                <th>p ∧ q</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>0</td>
+                                                                <td>1</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 5 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema3heading5">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema3collapse5"
+                                                    aria-expanded="false" aria-controls="tema3collapse5">
+                                                    <strong>Valor Lógico dos Conectivos (Parte II)</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema3collapse5" class="accordion-collapse collapse"
+                                                aria-labelledby="tema3heading5" data-bs-parent="#tema3Accordion">
+                                                <div class="accordion-body">
+                                                    <h6>3. Disjunção (OU / ∨)</h6>
+                                                    <ul>
+                                                        <li><strong>Tipo:</strong> Conectivo binário.</li>
+                                                        <li><strong>Regra:</strong> Só é falsa (0) se ambas as
+                                                            proposições forem falsas.</li>
+                                                    </ul>
+                                                    <table class="table table-bordered text-center table-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>p</th>
+                                                                <th>q</th>
+                                                                <th>p ∨ q</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>0</td>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>0</td>
+                                                                <td>1</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 6 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema3heading6">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema3collapse6"
+                                                    aria-expanded="false" aria-controls="tema3collapse6">
+                                                    <strong>Valor Lógico dos Conectivos (Parte III)</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema3collapse6" class="accordion-collapse collapse"
+                                                aria-labelledby="tema3heading6" data-bs-parent="#tema3Accordion">
+                                                <div class="accordion-body">
+                                                    <h6>4. Implicação / Condicional (Se... então... / →)</h6>
+                                                    <ul>
+                                                        <li><strong>Regra:</strong> Só é falsa (0) quando a primeira
+                                                            proposição (antecedente) é verdadeira (1) e a segunda
+                                                            (consequente) é falsa (0).</li>
+                                                        <li><strong>Analogia:</strong> A promessa do político: "Se eu
+                                                            for eleito (p), vou calçar a rua (q)". Ele só mente se for
+                                                            eleito (p=1) e não calçar a rua (q=0).</li>
+                                                    </ul>
+                                                    <p class="small text-muted">Nota: Esta definição corresponde à
+                                                        implicação material (ou condicional material) da lógica
+                                                        clássica. Nem toda frase natural com "se... então..."
+                                                        corresponde à implicação material (p.ex., relações causais
+                                                        ou temporais na linguagem natural têm leitura distinta).
+                                                    </p>
+                                                    <table class="table table-bordered text-center table-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>p</th>
+                                                                <th>q</th>
+                                                                <th>p → q</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                                <td>1</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>0</td>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 7 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema3heading7">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema3collapse7"
+                                                    aria-expanded="false" aria-controls="tema3collapse7">
+                                                    <strong>Valor Lógico dos Conectivos (Parte IV)</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema3collapse7" class="accordion-collapse collapse"
+                                                aria-labelledby="tema3heading7" data-bs-parent="#tema3Accordion">
+                                                <div class="accordion-body">
+                                                    <h6>5. Bi-implicação / Bicondicional (Se e somente se / ↔)</h6>
+                                                    <ul>
+                                                        <li><strong>Regra:</strong> Só é verdadeira (1) quando as
+                                                            proposições têm valores lógicos iguais (ambas 0 ou ambas 1).
+                                                        </li>
+                                                    </ul>
+                                                    <table class="table table-bordered text-center table-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>p</th>
+                                                                <th>q</th>
+                                                                <th>p ↔ q</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                                <td>1</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>0</td>
+                                                                <td>1</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 8 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema3heading8">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema3collapse8"
+                                                    aria-expanded="false" aria-controls="tema3collapse8">
+                                                    <strong>Exemplo Prático: Resolvendo uma Expressão</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema3collapse8" class="accordion-collapse collapse"
+                                                aria-labelledby="tema3heading8" data-bs-parent="#tema3Accordion">
+                                                <div class="accordion-body">
+                                                    <p><strong>Expressão:</strong> <code>(p → q) ∧ ¬p</code> (um exemplo
+                                                        para ilustrar o processo)</p>
+                                                    <h6>Passo 1: Montar a estrutura da tabela (p, q).</h6>
+                                                    <h6>Passo 2: Resolver as operações internas primeiro, seguindo a
+                                                        precedência.</h6>
+                                                    <ul>
+                                                        <li>Calcular ¬p.</li>
+                                                        <li>Calcular p → q.</li>
+                                                    </ul>
+                                                    <h6>Passo 3: Resolver a operação final.</h6>
+                                                    <ul>
+                                                        <li>Calcular o ∧ entre os resultados das colunas (p → q) e ¬p.
+                                                        </li>
+                                                        <li>Mostrar a tabela final preenchida, destacando a coluna do
+                                                            resultado final.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Item 9 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="tema3heading9">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#tema3collapse9"
+                                                    aria-expanded="false" aria-controls="tema3collapse9">
+                                                    <strong>Leitura e resumo</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="tema3collapse9" class="accordion-collapse collapse"
+                                                aria-labelledby="tema3heading9" data-bs-parent="#tema3Accordion">
+                                                <div class="accordion-body">
+                                                    <h6>Resumo</h6>
+                                                    <ul>
+                                                        <li>Aprendemos a construir a Tabela da Verdade para qualquer
+                                                            número de variáveis.</li>
+                                                        <li>Entendemos o valor lógico de cada um dos cinco conectivos
+                                                            principais.</li>
+                                                        <li>Praticamos a resolução de expressões lógicas passo a passo.
+                                                        </li>
+                                                        <li>Agora que sabemos como encontrar os resultados, vamos
+                                                            aprender a classificar as expressões com base em suas
+                                                            saídas: Tautologia, Contradição e Contingência.</li>
+                                                    </ul>
+                                                    <h6>Leitura para prova</h6>
+                                                    <ul>
+                                                        <li>DA DOS SANTOS, Marcelo da Silva; NUNES, Sergio E.; SILVA, Cristiane; et al. <strong>Lógica computacional.</strong> Grupo A, 2021. E-book. ISBN 9786556901343. Disponível em: https://integrada.minhabiblioteca.com.br/#/books/9786556901343/</li>
+                                                        <li>Páginas 31 à 126</li>
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            <!-- Seção interativa: Tabelas da Verdade (pré-definidas) -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">Tabelas da Verdade - Interativas (pré-definidas)</div>
+                        <div class="card-body">
+                            <p>Escolha uma expressão pronta para ver a tabela da verdade correspondente.</p>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <select id="exprSelect" class="form-select">
+                                        <option value="not_p">¬p</option>
+                                        <option value="and_pq">p ∧ q</option>
+                                        <option value="or_pq">p ∨ q</option>
+                                        <option value="imp_pq">p → q</option>
+                                        <option value="iff_pq">p ↔ q</option>
+                                        <option value="imp_conj">(p ∧ q) → p</option>
+                                        <option value="imp_disj">(p ∨ q) → p</option>
+                                        <option value="contrad">(p ∧ ¬q) ∧ ¬p</option>
+                                        <option value="taut">p ∨ ¬p</option>
+                                        <option value="cont">(p ∨ q) → p</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <button id="showTableBtn" class="btn btn-primary">Exibir Tabela</button>
+                                </div>
+                            </div>
+                            <div id="truthTableContainer" class="table-responsive"></div>
+                            <div id="examplesContainer" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="2.html" class="btn btn-primary btn-lg">Continuar para o Próximo Tópico</a>
+            </div>
+        </main>
+
+        <footer class="text-center mt-5">
+            <p>&copy; 2025 - Ramon Paixão</p>
+        </footer>
+    </div>
+
+    <!-- Modal da Imagem -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Visualização da Imagem</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="notebooklm-mind-map.png" class="img-fluid" alt="Mapa Mental NotebookLM">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        // Espaço para o JavaScript
+        console.log("Página carregada e pronta para a lógica!");
+    </script>
+    <script>
+        // Gerador simples de tabelas da verdade para expressões pré-definidas
+        (function(){
+            const exprs = {
+                not_p: {vars: ['p'], fn: (p)=>[!p] , header: ['p','¬p']},
+                and_pq: {vars: ['p','q'], fn: (p,q)=>[p && q], header: ['p','q','p ∧ q']},
+                or_pq: {vars: ['p','q'], fn: (p,q)=>[p || q], header: ['p','q','p ∨ q']},
+                imp_pq: {vars: ['p','q'], fn: (p,q)=>[ (!p) || q ], header: ['p','q','p → q']},
+                iff_pq: {vars: ['p','q'], fn: (p,q)=>[ (p===q) ], header: ['p','q','p ↔ q']},
+                imp_conj: {vars: ['p','q'], fn: (p,q)=>[ (! (p && q)) || p ], header: ['p','q','(p ∧ q) → p']},
+                imp_disj: {vars: ['p','q'], fn: (p,q)=>[ (! (p || q)) || p ], header: ['p','q','(p ∨ q) → p']},
+                contrad: {vars: ['p','q'], fn: (p,q)=>[ (p && !q) && !p ], header: ['p','q','(p ∧ ¬q) ∧ ¬p']},
+                taut: {vars: ['p'], fn: (p)=>[ p || !p ], header: ['p','p ∨ ¬p']},
+                cont: {vars: ['p','q'], fn: (p,q)=>[ (! (p || q)) || p ], header: ['p','q','(p ∨ q) → p']}
+            };
+
+            function boolToNum(b){ return b ? 1 : 0; }
+
+            function generateTable(key){
+                const spec = exprs[key];
+                if(!spec) return '<div class="alert alert-danger">Expressão não encontrada.</div>';
+                const vars = spec.vars;
+                const rows = [];
+                const n = vars.length;
+                const total = 1 << n;
+                for(let i=0;i<total;i++){
+                    const vals = [];
+                    for(let j=0;j<n;j++){
+                        const val = !!( (i >> (n-1-j)) & 1 );
+                        vals.push(val);
+                    }
+                    const result = spec.fn(...vals);
+                    rows.push({vals,result});
+                }
+
+                // montar HTML
+                let html = '<table class="table table-bordered table-sm text-center">';
+                html += '<thead><tr>';
+                spec.header.forEach(h=> html += `<th>${h}</th>`);
+                html += '</tr></thead><tbody>';
+                rows.forEach(r=>{
+                    html += '<tr>';
+                    r.vals.forEach(v=> html += `<td>${boolToNum(v)}</td>`);
+                    r.result.forEach(res=> html += `<td>${boolToNum(res)}</td>`);
+                    html += '</tr>';
+                });
+                html += '</tbody></table>';
+                return html;
+            }
+
+            const examples = {
+                not_p: [
+                    'p: "Está chovendo" → ¬p: "Não está chovendo".'
+                ],
+                and_pq: [
+                    'p: "João estuda", q: "João faz exercícios" → p ∧ q: "João estuda e faz exercícios".',
+                    'Exemplo: ambos precisam ocorrer para a conjunção ser verdadeira.'
+                ],
+                or_pq: [
+                    'p: "Tem leite", q: "Tem suco" → p ∨ q: "Tem leite ou tem suco (ou ambos)".'
+                ],
+                imp_pq: [
+                    'p: "Se chover", q: "a rua ficará molhada" → p → q: "Se chover então a rua ficará molhada" (implicação material).',
+                    'Nota: a implicação é falsa somente quando p é verdadeira e q é falsa.'
+                ],
+                iff_pq: [
+                    'p: "A lâmpada está ligada", q: "há corrente elétrica" → p ↔ q: "A lâmpada está ligada se, e somente se, há corrente elétrica".'
+                ],
+                imp_conj: [
+                    '(p ∧ q) → p: "Se João estudou e praticou, então João estudou" — sempre verdadeiro (tautologia).'
+                ],
+                imp_disj: [
+                    '(p ∨ q) → p: exemplo onde nem sempre é verdadeiro; por exemplo, p: "Pedro é alto", q: "Carlos é alto" → (p ∨ q) → p é verdadeiro apenas quando p é verdadeiro ou p é falso e (p ∨ q) é falso.'
+                ],
+                contrad: [
+                    '(p ∧ ¬q) ∧ ¬p: exemplo com contradição — impossível de ser verdadeiro em todas as linhas.'
+                ],
+                taut: [
+                    'p ∨ ¬p: sempre verdadeiro — exemplo: "Está chovendo ou não está chovendo".'
+                ],
+                cont: [
+                    '(p ∨ q) → p: exemplo de contingência (às vezes verdadeiro, às vezes falso) — depende dos valores de p e q.'
+                ]
+            };
+
+            function renderExamples(key){
+                const container = document.getElementById('examplesContainer');
+                const list = examples[key];
+                if(!list){ container.innerHTML = ''; return; }
+                let html = '<div class="card"><div class="card-body">';
+                html += '<h6>Exemplos em linguagem natural</h6>';
+                html += '<ul>';
+                list.forEach(s=> html += `<li>${s}</li>`);
+                html += '</ul></div></div>';
+                container.innerHTML = html;
+            }
+
+            document.getElementById('showTableBtn').addEventListener('click', ()=>{
+                const sel = document.getElementById('exprSelect').value;
+                const container = document.getElementById('truthTableContainer');
+                container.innerHTML = generateTable(sel);
+                renderExamples(sel);
+            });
+        })();
+    </script>
+    <script>
+        // Ao carregar, forçar todos os accordions a ficarem abertos por padrão
+        (function(){
+            function openAllAccordions(){
+                // Todas as áreas de collapse
+                const collapses = document.querySelectorAll('.accordion-collapse');
+                collapses.forEach(c=>{
+                    // adicionar classe show, remover classe collapse (bootstrap usa ambas internamente)
+                    c.classList.add('show');
+                    c.classList.remove('collapse');
+                    // remover atributo data-bs-parent para evitar que se fechem mutuamente
+                    if(c.hasAttribute('data-bs-parent')) c.removeAttribute('data-bs-parent');
+                });
+
+                // Todos os botões (toggle) — marcar como expandido
+                const buttons = document.querySelectorAll('.accordion-button');
+                buttons.forEach(btn=>{
+                    btn.classList.remove('collapsed');
+                    btn.setAttribute('aria-expanded', 'true');
+                });
+            }
+
+            if(document.readyState === 'loading'){
+                document.addEventListener('DOMContentLoaded', openAllAccordions);
+            } else {
+                openAllAccordions();
+            }
+        })();
+    </script>
+</body>
+
+</html>

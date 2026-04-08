@@ -1,0 +1,968 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --bg-light: #ecf0f1;
+            --text-dark: #2c3e50;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--bg-light), #fff);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+        
+        .navbar-custom {
+            background-color: var(--primary-color);
+            box-shadow: var(--card-shadow);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s;
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            border-bottom: 3px solid var(--accent-color);
+        }
+        
+        .accordion-button {
+            background-color: #fff;
+            color: var(--text-dark);
+            border: none;
+            box-shadow: none;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .accordion-item {
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: 10px !important;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        code {
+            background: #f8f9fa;
+            color: var(--accent-color);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .page-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: var(--card-shadow);
+        }
+    </style>
+    
+    <title>Lógica para Computação - Aula 4</title>
+    <meta name="description"
+        content="Aula de revisão sobre valores lógicos das proposições, tabelas da verdade e regras de equivalência." />
+    <link rel="icon" href="https://images.icon-icons.com/4300/PNG/512/file_save_storage_disk_data_icon_266977.png"
+        type="image/png">
+</head>
+
+<body>
+    <header class="page-header">
+        <div class="container">
+            <div class="text-center">
+                <h1>Lógica para Computação</h1>
+                <p class="lead">Valores Lógicos das Proposições</p>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container pb-5">
+        <main>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="accordion" id="aula4Accordion">
+                        <!-- Slide 2 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                    <strong>Recapitulando e Apresentando os Objetivos</strong>
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
+                                data-bs-parent="#aula4Accordion">
+                                <div class="accordion-body">
+                                    <h6>Revisão</h6>
+                                    <ul>
+                                        <li>Aprendemos a construir a Tabela da Verdade para qualquer expressão lógica.
+                                        </li>
+                                        <li>Entendemos os valores lógicos de cada conectivo (negação, conjunção,
+                                            disjunção, implicação, bi-implicação).</li>
+                                    </ul>
+                                    <h6>Objetivo</h6>
+                                    <ul>
+                                        <li>Aprender a analisar e classificar a coluna de resultado final de uma tabela
+                                            da verdade.</li>
+                                        <li>Entender o que são Tautologia, Contradição e Contingência e como identificar
+                                            cada uma delas.</li>
+                                    </ul>
+                                    <p class="small text-muted mt-2">Observação: o material usa a lógica clássica como
+                                        referência. Em lógicas não-clássicas algumas leis (por exemplo, do terceiro
+                                        excluído) podem ser tratadas de forma diferente.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                    <strong>Classificações Iniciais: Satisfazível e Falseável</strong>
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
+                                data-bs-parent="#aula4Accordion">
+                                <div class="accordion-body">
+                                    <p><strong>Pergunta:</strong> Antes de classificar o "todo", podemos analisar se uma
+                                        expressão pode ser verdadeira ou falsa?</p>
+                                    <h6>Expressão Satisfazível:</h6>
+                                    <ul>
+                                        <li>Uma expressão é dita satisfazível se pelo menos uma de suas validações na
+                                            tabela da verdade for verdadeira (1).</li>
+                                        <li><strong>Importância na Computação:</strong> Se a condição de um
+                                            <code>if</code> é satisfazível, significa que existe um cenário em que o
+                                            bloco de código será executado.
+                                        </li>
+                                    </ul>
+                                    <h6>Expressão Falseável (ou Falsificável):</h6>
+                                    <ul>
+                                        <li>Uma expressão é dita falseável se pelo menos uma de suas validações na
+                                            tabela da verdade for falsa (0).</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                    <strong>As Três Classificações Principais</strong>
+                                </button>
+                            </h2>
+                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
+                                data-bs-parent="#aula4Accordion">
+                                <div class="accordion-body">
+                                    <h6>1. Tautologia:</h6>
+                                    <ul>
+                                        <li><strong>Definição:</strong> Uma expressão é uma tautologia se seu resultado
+                                            for verdadeiro (1) em TODAS as suas validações na tabela da verdade.</li>
+                                        <li><strong>Analogia:</strong> É como uma lâmpada que fica sempre acesa,
+                                            independentemente da posição dos interruptores.</li>
+                                        <li><strong>Na Programação:</strong> Seria uma condição em um <code>if</code>
+                                            que sempre é executada, ou um laço <code>while</code> que nunca termina
+                                            (loop infinito).</li>
+                                    </ul>
+                                    <h6>2. Contradição:</h6>
+                                    <ul>
+                                        <li><strong>Definição:</strong> Uma expressão é uma contradição se seu resultado
+                                            for falso (0) em TODAS as suas validações.</li>
+                                        <li><strong>Analogia:</strong> A lâmpada que está sempre apagada, não importa a
+                                            configuração dos interruptores.</li>
+                                        <li><strong>Na Programação:</strong> Uma condição em um <code>if</code> que
+                                            nunca é executada, tornando o código inacessível.</li>
+                                    </ul>
+                                    <h6>3. Contingência:</h6>
+                                    <ul>
+                                        <li><strong>Definição:</strong> Uma expressão é uma contingência quando não é
+                                            nem uma tautologia, nem uma contradição.</li>
+                                        <li>Seu resultado final na tabela da verdade possui tanto valores verdadeiros
+                                            quanto falsos.</li>
+                                        <li><strong>Na Programação:</strong> É o caso mais comum para estruturas
+                                            condicionais e laços, onde o resultado depende das entradas para determinar
+                                            se o código executa ou se um laço para.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 5 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading5">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                                    <strong>Exemplo Prático de Tautologia</strong>
+                                </button>
+                            </h2>
+                            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
+                                data-bs-parent="#aula4Accordion">
+                                <div class="accordion-body">
+                                    <p><strong>Expressão:</strong> <code>(p ∧ q) → p</code></p>
+                                    <h6>Construção da Tabela da Verdade (Passo a Passo):</h6>
+                                    <ol>
+                                        <li>Colunas de Entrada: p e q.</li>
+                                        <li>Resolver Parênteses: p ∧ q (só é 1 se ambos forem 1).</li>
+                                        <li>Resolver a Expressão Final: (p ∧ q) → p.</li>
+                                    </ol>
+                                    <h6>Tabela Preenchida:</h6>
+                                    <table class="table table-bordered text-center table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>p</th>
+                                                <th>q</th>
+                                                <th>p ∧ q</th>
+                                                <th>(p ∧ q) → p</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>0</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="mt-3"><strong>Conclusão:</strong> Como a coluna de resultado final contém
+                                        apenas valores verdadeiros (1), a expressão é uma tautologia.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 6 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading6">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                                    <strong>Exemplo Prático de Contradição</strong>
+                                </button>
+                            </h2>
+                            <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6"
+                                data-bs-parent="#aula4Accordion">
+                                <div class="accordion-body">
+                                    <p><strong>Expressão:</strong> <code>(p ∧ ¬q) ∧ ¬p</code></p>
+                                    <h6>Construção da Tabela da Verdade (Passo a Passo):</h6>
+                                    <ol>
+                                        <li>Colunas de Entrada: p e q.</li>
+                                        <li>Calcular Negações: ¬p e ¬q.</li>
+                                        <li>Resolver Parênteses: p ∧ ¬q.</li>
+                                        <li>Resolver a Expressão Final: (p ∧ ¬q) ∧ ¬p.</li>
+                                    </ol>
+                                    <h6>Tabela Preenchida (Resultados Finais):</h6>
+                                    <table class="table table-bordered text-center table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>p</th>
+                                                <th>q</th>
+                                                <th>¬p</th>
+                                                <th>¬q</th>
+                                                <th>p ∧ ¬q</th>
+                                                <th>(p ∧ ¬q) ∧ ¬p</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>0</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="mt-3"><strong>Conclusão:</strong> Como a coluna de resultado final contém
+                                        apenas valores falsos (0), a expressão é uma contradição.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 7 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading7">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                                    <strong>Exemplo Prático de Contingência</strong>
+                                </button>
+                            </h2>
+                            <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7"
+                                data-bs-parent="#aula4Accordion">
+                                <div class="accordion-body">
+                                    <p><strong>Expressão:</strong> <code>(p ∨ q) → p</code></p>
+                                    <h6>Construção da Tabela da Verdade (Passo a Passo):</h6>
+                                    <ol>
+                                        <li>Colunas de Entrada: p e q.</li>
+                                        <li>Resolver Parênteses: p ∨ q (só é 0 se ambos forem 0).</li>
+                                        <li>Resolver a Expressão Final: (p ∨ q) → p.</li>
+                                    </ol>
+                                    <h6>Tabela Preenchida:</h6>
+                                    <table class="table table-bordered text-center table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>p</th>
+                                                <th>q</th>
+                                                <th>p ∨ q</th>
+                                                <th>(p ∨ q) → p</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>0</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="mt-3"><strong>Conclusão:</strong> A coluna de resultado final possui tanto
+                                        valores verdadeiros (1) quanto falsos (0), portanto, a expressão é uma
+                                        contingência.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 8 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading8">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                                    <strong>Conclusão</strong>
+                                </button>
+                            </h2>
+                            <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8"
+                                data-bs-parent="#aula4Accordion">
+                                <div class="accordion-body">
+                                    <h6>Resumo da Aula:</h6>
+                                    <ul>
+                                        <li>Aprendemos a classificar os resultados de uma tabela da verdade.</li>
+                                        <li>Tautologia: Sempre Verdadeiro.</li>
+                                        <li>Contradição: Sempre Falso.</li>
+                                        <li>Contingência: Pode ser Verdadeiro ou Falso.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <h2 class="mb-3">Regras de Equivalência Lógica</h2>
+                    <div class="accordion" id="equivalenciaAccordion">
+                        <!-- Slide 2 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="equivHeading2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#equivCollapse2" aria-expanded="false"
+                                    aria-controls="equivCollapse2">
+                                    <strong>Recapitulando e Apresentando os Objetivos</strong>
+                                </button>
+                            </h2>
+                            <div id="equivCollapse2" class="accordion-collapse collapse" aria-labelledby="equivHeading2"
+                                data-bs-parent="#equivalenciaAccordion">
+                                <div class="accordion-body">
+                                    <h6>Revisão:</h6>
+                                    <ul>
+                                        <li>Analisamos os resultados das tabelas da verdade para classificar proposições
+                                            como Tautologia (sempre V), Contradição (sempre F) ou Contingência (V ou F).
+                                        </li>
+                                    </ul>
+                                    <h6>Observação-chave:</h6>
+                                    <ul>
+                                        <li>Notamos que expressões diferentes podem produzir o mesmo resultado final na
+                                            tabela da verdade. Por exemplo, várias expressões podem ser tautologias.
+                                        </li>
+                                    </ul>
+                                    <h6>Pergunta da Aula:</h6>
+                                    <ul>
+                                        <li>O que significa quando duas proposições diferentes possuem tabelas da
+                                            verdade idênticas?</li>
+                                    </ul>
+                                    <h6>Objetivos:</h6>
+                                    <ul>
+                                        <li>Definir o que é Equivalência Lógica.</li>
+                                        <li>Apresentar e provar as principais regras de equivalência que nos permitem
+                                            simplificar e manipular expressões lógicas.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="equivHeading3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#equivCollapse3" aria-expanded="false"
+                                    aria-controls="equivCollapse3">
+                                    <strong>O Que é Equivalência Lógica?</strong>
+                                </button>
+                            </h2>
+                            <div id="equivCollapse3" class="accordion-collapse collapse" aria-labelledby="equivHeading3"
+                                data-bs-parent="#equivalenciaAccordion">
+                                <div class="accordion-body">
+                                    <h6>Definição:</h6>
+                                    <ul>
+                                        <li>"Dizemos que duas proposições p e q são equivalentes quando os resultados de
+                                            suas tabelas da verdade são iguais e têm o mesmo valor lógico em cada
+                                            linha".</li>
+                                    </ul>
+                                    <h6>Símbolo: ↔ ou ≡ (Indica que duas expressões são logicamente equivalentes).</h6>
+                                    <h6>Utilidade Prática:</h6>
+                                    <ul>
+                                        <li>Permite substituir uma fórmula por outra que seja mais simples ou mais
+                                            conveniente, sem alterar o resultado lógico.</li>
+                                        <li>Essencial para otimizar condições em programação (if, while) e simplificar o
+                                            raciocínio lógico.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="equivHeading4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#equivCollapse4" aria-expanded="false"
+                                    aria-controls="equivCollapse4">
+                                    <strong>Regra 1: Dupla Negação</strong>
+                                </button>
+                            </h2>
+                            <div id="equivCollapse4" class="accordion-collapse collapse" aria-labelledby="equivHeading4"
+                                data-bs-parent="#equivalenciaAccordion">
+                                <div class="accordion-body">
+                                    <p><strong>Nome:</strong> Dupla Negação.</p>
+                                    <p><strong>Fórmula:</strong> <code>p ↔ ¬(¬p)</code>.</p>
+                                    <p><strong>Explicação:</strong> Negar uma proposição duas vezes retorna ao seu valor
+                                        original. É como multiplicar um número por -1 duas vezes.</p>
+                                    <h6>Prova (Mini Tabela da Verdade):</h6>
+                                    <table class="table table-bordered text-center table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>p</th>
+                                                <th>¬p</th>
+                                                <th>¬(¬p)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>0</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>1</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="mt-3"><strong>Ponto Importante:</strong> Funciona tanto para proposições
+                                        simples (p) quanto para compostas (p ∧ q).</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 5 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="equivHeading5">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#equivCollapse5" aria-expanded="false"
+                                    aria-controls="equivCollapse5">
+                                    <strong>Regra 2: Implicação</strong>
+                                </button>
+                            </h2>
+                            <div id="equivCollapse5" class="accordion-collapse collapse" aria-labelledby="equivHeading5"
+                                data-bs-parent="#equivalenciaAccordion">
+                                <div class="accordion-body">
+                                    <p><strong>Nome:</strong> Regra da Implicação.</p>
+                                    <p><strong>Fórmula:</strong> <code>(p → q) ↔ (¬p ∨ q)</code>.</p>
+                                    <p><strong>Explicação:</strong> Uma implicação (se... então...) pode ser reescrita
+                                        como uma disjunção (ou).</p>
+                                    <h6>"Macete" para a transformação:</h6>
+                                    <ol>
+                                        <li>Troque o símbolo → por ∨.</li>
+                                        <li>Negue a primeira parte da expressão.</li>
+                                        <li>Mantenha a segunda parte igual.</li>
+                                    </ol>
+                                    <p><strong>Nota:</strong> A prova completa com a tabela da verdade mostra que as
+                                        colunas de resultado para (p → q) e (¬p ∨ q) são idênticas.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 6 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="equivHeading6">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#equivCollapse6" aria-expanded="false"
+                                    aria-controls="equivCollapse6">
+                                    <strong>Regra 3: Leis de De Morgan</strong>
+                                </button>
+                            </h2>
+                            <div id="equivCollapse6" class="accordion-collapse collapse" aria-labelledby="equivHeading6"
+                                data-bs-parent="#equivalenciaAccordion">
+                                <div class="accordion-body">
+                                    <p><strong>Nome:</strong> Leis de De Morgan.</p>
+                                    <p><strong>Importância:</strong> "É importante que vocês fixem bastante porque a
+                                        gente vai utilizar muito ao decorrer dessa nossa disciplina". Essencial para
+                                        negar proposições compostas.</p>
+                                    <h6>Fórmulas:</h6>
+                                    <ol>
+                                        <li><code>¬(p ∧ q) ↔ (¬p ∨ ¬q)</code></li>
+                                        <li><code>¬(p ∨ q) ↔ (¬p ∧ ¬q)</code></li>
+                                    </ol>
+                                    <h6>Explicação (Como aplicar):</h6>
+                                    <ul>
+                                        <li>A negação "entra" nos parênteses, negando cada parte.</li>
+                                        <li>O conectivo é invertido: ∧ vira ∨, e ∨ vira ∧.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 7 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="equivHeading7">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#equivCollapse7" aria-expanded="false"
+                                    aria-controls="equivCollapse7">
+                                    <strong>Regras 4 e 5: Comutatividade e Associatividade</strong>
+                                </button>
+                            </h2>
+                            <div id="equivCollapse7" class="accordion-collapse collapse" aria-labelledby="equivHeading7"
+                                data-bs-parent="#equivalenciaAccordion">
+                                <div class="accordion-body">
+                                    <p><strong>Analogia com a Matemática:</strong> Assim como na soma e multiplicação, a
+                                        ordem de algumas operações lógicas não altera o resultado.</p>
+                                    <h6>Comutatividade ("Trocar a Ordem"):</h6>
+                                    <ul>
+                                        <li><code>p ∧ q ↔ q ∧ p</code></li>
+                                        <li><code>p ∨ q ↔ q ∨ p</code></li>
+                                        <li><strong>Atenção:</strong> Não se aplica à implicação! (p → q) NÃO é
+                                            equivalente a (q → p).</li>
+                                    </ul>
+                                    <h6>Associatividade ("Mudar os Parênteses"):</h6>
+                                    <ul>
+                                        <li><code>(p ∧ q) ∧ r ↔ p ∧ (q ∧ r)</code></li>
+                                        <li><code>(p ∨ q) ∨ r ↔ p ∨ (q ∨ r)</code></li>
+                                        <li><strong>Atenção:</strong> Só funciona quando os conectivos são os mesmos.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 8 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="equivHeading8">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#equivCollapse8" aria-expanded="false"
+                                    aria-controls="equivCollapse8">
+                                    <strong>Outras Regras Úteis para Simplificação</strong>
+                                </button>
+                            </h2>
+                            <div id="equivCollapse8" class="accordion-collapse collapse" aria-labelledby="equivHeading8"
+                                data-bs-parent="#equivalenciaAccordion">
+                                <div class="accordion-body">
+                                    <h6>Distributividade:</h6>
+                                    <ul>
+                                        <li><code>p ∧ (q ∨ r) ↔ (p ∧ q) ∨ (p ∧ r)</code></li>
+                                        <li><code>p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (p ∨ r)</code></li>
+                                    </ul>
+                                    <h6>Complemento:</h6>
+                                    <ul>
+                                        <li><code>p ∨ ¬p ↔ T</code> (Sempre uma Tautologia)</li>
+                                        <li><code>p ∧ ¬p ↔ F</code> (Sempre uma Contradição)</li>
+                                    </ul>
+                                    <h6>Absorção:</h6>
+                                    <ul>
+                                        <li><code>p ∨ (p ∧ q) ↔ p</code></li>
+                                        <li><code>p ∧ (p ∨ q) ↔ p</code></li>
+                                    </ul>
+                                    <h6>Idempotência:</h6>
+                                    <ul>
+                                        <li><code>p ∨ p ↔ p</code></li>
+                                        <li><code>p ∧ p ↔ p</code></li>
+                                    </ul>
+                                    <h6>Elemento Neutro:</h6>
+                                    <ul>
+                                        <li><code>p ∨ F ↔ p</code> — aqui <code>F</code> representa uma fórmula sempre
+                                            falsa (uma contradição). Portanto <code>p ∨ F ≡ p</code>.</li>
+                                        <li><code>p ∧ T ↔ p</code> — aqui <code>T</code> representa uma fórmula sempre
+                                            verdadeira (uma tautologia). Portanto <code>p ∧ T ≡ p</code>.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 9 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="equivHeading9">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#equivCollapse9" aria-expanded="false"
+                                    aria-controls="equivCollapse9">
+                                    <strong>Exemplo de Aplicação: Negando uma Proposição Complexa</strong>
+                                </button>
+                            </h2>
+                            <div id="equivCollapse9" class="accordion-collapse collapse" aria-labelledby="equivHeading9"
+                                data-bs-parent="#equivalenciaAccordion">
+                                <div class="accordion-body">
+                                    <h6>Problema: Qual a negação da frase "Se Ana estudou, então foi aprovada"?</h6>
+                                    <ol>
+                                        <li><strong>Passo 1 (Formalizar):</strong> <code>p → q</code></li>
+                                        <li><strong>Passo 2 (Aplicar a Negação):</strong> <code>¬(p → q)</code></li>
+                                        <li><strong>Passo 3 (Usar a Regra da Implicação):</strong> A lei de Morgan não
+                                            se aplica diretamente a →, então primeiro convertemos:
+                                            <code>¬(¬p ∨ q)</code>.
+                                        </li>
+                                        <li><strong>Passo 4 (Usar a Lei de De Morgan):</strong> Agora sim. Trocamos ∨
+                                            por ∧ e negamos as partes: <code>¬(¬p) ∧ ¬q</code>.</li>
+                                        <li><strong>Passo 5 (Usar a Dupla Negação):</strong> <code>p ∧ ¬q</code>.</li>
+                                    </ol>
+                                    <p><strong>Resultado (Tradução de volta):</strong> "Ana estudou e não foi aprovada".
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 10 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="equivHeading10">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#equivCollapse10" aria-expanded="false"
+                                    aria-controls="equivCollapse10">
+                                    <strong>Conclusão</strong>
+                                </button>
+                            </h2>
+                            <div id="equivCollapse10" class="accordion-collapse collapse"
+                                aria-labelledby="equivHeading10" data-bs-parent="#equivalenciaAccordion">
+                                <div class="accordion-body">
+                                    <h6>Resumo:</h6>
+                                    <ul>
+                                        <li>Aprendemos que proposições com tabelas da verdade idênticas são
+                                            equivalentes.</li>
+                                        <li>Estudamos as principais regras de equivalência (De Morgan, Implicação,
+                                            Comutativa, etc.).</li>
+                                        <li>Vimos como usar essas regras para simplificar e negar proposições complexas.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Nova seção: Exemplos e Tabelas da Verdade para Regras de Equivalência -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">Exemplos e Tabelas - Regras de Equivalência</div>
+                        <div class="card-body">
+                            <p>Para cada regra de equivalência, segue um exemplo em linguagem natural e uma tabela da verdade comparando as duas fórmulas equivalentes.</p>
+                            <div class="accordion" id="equivExamplesAccordion">
+                                <!-- Dupla Negação -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="exHeading1">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exCollapse1" aria-expanded="false" aria-controls="exCollapse1">
+                                            <strong>Dupla Negação: p ↔ ¬(¬p)</strong>
+                                        </button>
+                                    </h2>
+                                    <div id="exCollapse1" class="accordion-collapse collapse" aria-labelledby="exHeading1" data-bs-parent="#equivExamplesAccordion">
+                                        <div class="accordion-body">
+                                            <p><strong>Exemplo natural:</strong> "Não é verdade que não está chovendo" é logicamente equivalente a "Está chovendo".</p>
+                                            <h6>Tabela da Verdade</h6>
+                                            <table class="table table-bordered text-center table-sm">
+                                                <thead><tr><th>p</th><th>¬p</th><th>¬(¬p)</th></tr></thead>
+                                                <tbody>
+                                                    <tr><td>0</td><td>1</td><td>0</td></tr>
+                                                    <tr><td>1</td><td>0</td><td>1</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Implicação -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="exHeading2">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exCollapse2" aria-expanded="false" aria-controls="exCollapse2">
+                                            <strong>Implicação: (p → q) ↔ (¬p ∨ q)</strong>
+                                        </button>
+                                    </h2>
+                                    <div id="exCollapse2" class="accordion-collapse collapse" aria-labelledby="exHeading2" data-bs-parent="#equivExamplesAccordion">
+                                        <div class="accordion-body">
+                                            <p><strong>Exemplo natural:</strong> "Se chover, a rua ficará molhada" é equivalente a "Ou não chove, ou a rua fica molhada".</p>
+                                            <h6>Tabela da Verdade (p, q)</h6>
+                                            <table class="table table-bordered text-center table-sm">
+                                                <thead><tr><th>p</th><th>q</th><th>p → q</th><th>¬p ∨ q</th></tr></thead>
+                                                <tbody>
+                                                    <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+                                                    <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+                                                    <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- De Morgan -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="exHeading3">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exCollapse3" aria-expanded="false" aria-controls="exCollapse3">
+                                            <strong>Leis de De Morgan: ¬(p ∧ q) ↔ (¬p ∨ ¬q)  e ¬(p ∨ q) ↔ (¬p ∧ ¬q)</strong>
+                                        </button>
+                                    </h2>
+                                    <div id="exCollapse3" class="accordion-collapse collapse" aria-labelledby="exHeading3" data-bs-parent="#equivExamplesAccordion">
+                                        <div class="accordion-body">
+                                            <p><strong>Exemplo natural:</strong> "Não é verdade que João estuda e trabalha" equivale a "João não estuda ou não trabalha".</p>
+                                            <h6>Tabela da Verdade (p, q) — comparar ¬(p ∧ q) com (¬p ∨ ¬q)</h6>
+                                            <table class="table table-bordered text-center table-sm">
+                                                <thead><tr><th>p</th><th>q</th><th>p ∧ q</th><th>¬(p ∧ q)</th><th>¬p ∨ ¬q</th></tr></thead>
+                                                <tbody>
+                                                    <tr><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+                                                    <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+                                                    <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+                                                    <tr><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Comutatividade e Associatividade -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="exHeading4">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exCollapse4" aria-expanded="false" aria-controls="exCollapse4">
+                                            <strong>Comutatividade / Associatividade</strong>
+                                        </button>
+                                    </h2>
+                                    <div id="exCollapse4" class="accordion-collapse collapse" aria-labelledby="exHeading4" data-bs-parent="#equivExamplesAccordion">
+                                        <div class="accordion-body">
+                                            <p><strong>Exemplo natural (Comutatividade):</strong> "Pedro estuda e Maria trabalha" é equivalente a "Maria trabalha e Pedro estuda".</p>
+                                            <p><strong>Exemplo natural (Associatividade):</strong> "(p ∧ q) ∧ r" é equivalente a "p ∧ (q ∧ r)" — a ordem dos parênteses não altera quando o conectivo é o mesmo.</p>
+                                            <h6>Tabela da Verdade (como ilustração para p ∧ q e q ∧ p)</h6>
+                                            <table class="table table-bordered text-center table-sm">
+                                                <thead><tr><th>p</th><th>q</th><th>p ∧ q</th><th>q ∧ p</th></tr></thead>
+                                                <tbody>
+                                                    <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Distributividade -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="exHeading5">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exCollapse5" aria-expanded="false" aria-controls="exCollapse5">
+                                            <strong>Distributividade: p ∧ (q ∨ r) ↔ (p ∧ q) ∨ (p ∧ r)</strong>
+                                        </button>
+                                    </h2>
+                                    <div id="exCollapse5" class="accordion-collapse collapse" aria-labelledby="exHeading5" data-bs-parent="#equivExamplesAccordion">
+                                        <div class="accordion-body">
+                                            <p><strong>Exemplo natural:</strong> "Pedro está estudando e (hoje é segunda ou hoje é terça)" é equivalente a "(Pedro está estudando e hoje é segunda) ou (Pedro está estudando e hoje é terça)".</p>
+                                            <h6>Tabela da Verdade (p, q, r)</h6>
+                                            <table class="table table-bordered text-center table-sm">
+                                                <thead><tr><th>p</th><th>q</th><th>r</th><th>q ∨ r</th><th>p ∧ (q ∨ r)</th><th>(p ∧ q) ∨ (p ∧ r)</th></tr></thead>
+                                                <tbody>
+                                                    <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                                                    <tr><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+                                                    <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Absorção e Idempotência -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="exHeading6">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exCollapse6" aria-expanded="false" aria-controls="exCollapse6">
+                                            <strong>Absorção / Idempotência</strong>
+                                        </button>
+                                    </h2>
+                                    <div id="exCollapse6" class="accordion-collapse collapse" aria-labelledby="exHeading6" data-bs-parent="#equivExamplesAccordion">
+                                        <div class="accordion-body">
+                                            <p><strong>Absorção:</strong> <code>p ∨ (p ∧ q) ↔ p</code>. Exemplo: "Tem leite ou (tem leite e tem café)" é equivalente a "tem leite".</p>
+                                            <p><strong>Idempotência:</strong> <code>p ∨ p ↔ p</code>. Repetir a mesma proposição não altera o valor.</p>
+                                            <h6>Tabela da Verdade (p, q) — Absorção</h6>
+                                            <table class="table table-bordered text-center table-sm">
+                                                <thead><tr><th>p</th><th>q</th><th>p ∧ q</th><th>p ∨ (p ∧ q)</th><th>p</th></tr></thead>
+                                                <tbody>
+                                                    <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+                                                    <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+                                                    <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Elemento Neutro -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="exHeading7">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exCollapse7" aria-expanded="false" aria-controls="exCollapse7">
+                                            <strong>Elemento Neutro: p ∨ F ↔ p  e p ∧ T ↔ p</strong>
+                                        </button>
+                                    </h2>
+                                    <div id="exCollapse7" class="accordion-collapse collapse" aria-labelledby="exHeading7" data-bs-parent="#equivExamplesAccordion">
+                                        <div class="accordion-body">
+                                            <p><strong>Exemplo natural:</strong> Se F significa "nunca" (fórmula sempre falsa), então "Tem café ou nunca" é equivalente a "Tem café".</p>
+                                            <h6>Tabela da Verdade (p)</h6>
+                                            <table class="table table-bordered text-center table-sm">
+                                                <thead><tr><th>p</th><th>F</th><th>p ∨ F</th><th>T</th><th>p ∧ T</th></tr></thead>
+                                                <tbody>
+                                                    <tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+                                                    <tr><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="index.html" class="btn btn-secondary btn-lg">Voltar ao Tópico Anterior</a>
+            </div>
+        </main>
+
+        <footer class="text-center mt-5">
+            <p>&copy; 2025 - Ramon Paixão</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        // Forçar todos os accordions abertos por padrão
+        (function(){
+            function openAllAccordions(){
+                const collapses = document.querySelectorAll('.accordion-collapse');
+                collapses.forEach(c=>{
+                    c.classList.add('show');
+                    c.classList.remove('collapse');
+                    if(c.hasAttribute('data-bs-parent')) c.removeAttribute('data-bs-parent');
+                });
+
+                const buttons = document.querySelectorAll('.accordion-button');
+                buttons.forEach(btn=>{
+                    btn.classList.remove('collapsed');
+                    btn.setAttribute('aria-expanded','true');
+                });
+            }
+
+            if(document.readyState === 'loading'){
+                document.addEventListener('DOMContentLoaded', openAllAccordions);
+            } else {
+                openAllAccordions();
+            }
+        })();
+    </script>
+</body>
+
+</html>
